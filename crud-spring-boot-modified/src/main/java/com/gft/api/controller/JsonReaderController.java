@@ -21,10 +21,15 @@ public class JsonReaderController {
 		return productBusinessObject.readFiles();
     }
 	
+	@GetMapping("import/validation")
+    public String initreaderTwo() {
+		return productBusinessObject.readFiles(2);
+    }
+	
 	@GetMapping("clean/import")
     public String cleanImport() {
 		productBusinessObject.cleanImport();
-		return productBusinessObject.readFiles();
+		return productBusinessObject.readFiles(2);
     }
 
 }

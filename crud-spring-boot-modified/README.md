@@ -10,7 +10,7 @@ https://github.com/marceloboah/gft_rumo
 
 1)Para executar a aplicação basta
 abrir o prompt de comando e acessar dentro da pasta target do projeto a aplicação gft-api em arquivo  jar.
-\crud-spring-boot-modified\target\gft-api-1.0.0-RELEASE.jar
+\crud-spring-boot-modified\target\gft-api-1.0.1-RELEASE.jar
 
 Atenção para mudanças no nome do arquivo referente a alterções na versão.
 
@@ -37,7 +37,7 @@ Password:
 http://localhost:9099
 
 5) Para executar a carga dos arquivos acesse:
-http://localhost:9099/api/initreader
+http://localhost:9099/api/import/validation
 
 6) Para visualizar os dados utilize o console do H2 ou acesse o endpoint:
 http://localhost:9099/api/product
@@ -83,9 +83,10 @@ Possibilidade para evolução da aplicação:
 A aplicação permite muita evolução como use de lombok, diretivas, construção futura de gulp ou grunt, sistemas de rotas, adição de framework no frontend.
 
 Parte 1: Ler e armazenar:
-Item realizado no endpoint http://localhost:9099/api/initreader
+Item realizado no endpoint http://localhost:9099/api/import/validation
 
-Foi utilizado o método save do SpringBoot que verifica se o item já existe no BD e caso exista ele apenas atualiza.
+Foi utilizado o método save do SpringBoot que verifica se o item já existe no BD e caso exista ele apenas atualiza na solução porém o código não relizou a validação durante os testes.
+Foi criada uma nova solução com consulta do objeto, porém o tempo de processamento aumentou com relação ao endpoint anterior. 
 Foi utilizado o paralelismo através de abertura de uma Thread para cada arquivo conforme solicitado.
 
 
@@ -105,6 +106,13 @@ http://localhost:9099/api/clean/import
 
 OBS: Falta busca e paginação.
 
+
+--------------------------------
+Alterações
+
+A solução no endpoint http://localhost:9099/api/initreader foi alterada e foi corrigido um bug de iteração a cada duas linhas. No momento dos testes foi verificado que a coluna industry não consta como chave e neste caso o método save não soluciona o problema.
+
+Foi criado um novo endpoint http://localhost:9099/api/import/validation com validação de busca no banco que passa a ser a solução principal. O código anterior se mantém no programa para fins de comparação.
 
 
 

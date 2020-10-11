@@ -68,6 +68,19 @@ public class ProductBusinessObject {
     	return productRepository.save(product);
     }
     
+    public Product addProductWithValidation(Product product) {
+    	Product productVerify = new Product();
+    	productVerify = productRepository.findProductByParam(product.getOrigin(),product.getProduct(),product.getQuantity(),product.getPrice(),product.getType());
+    	if(productVerify != null && productVerify.getProduct().equals("TKC")) {
+    		System.out.println(productVerify.getId());
+    	}
+    	if (productVerify != null && productVerify.getId()>1) {
+    		product.setId(productVerify.getId());
+    		return productRepository.save(product);//Atualiza produto existente
+    	}
+    	return productRepository.save(product);//adiciona novo produto
+    }
+    
     public void deleteProduct(Long id) {
     	productRepository.deleteById(id);
     }
@@ -116,31 +129,48 @@ public class ProductBusinessObject {
 				        }
 				      }.start();
 			}
-			
-			 
-			
 			return "Operação executada!";
-
 	 }
 	 
-	 public void addLinesToBase(String file)  {
+	 
+	 public String readFiles(Integer kindImport)  {
+			System.out.println("Iniciar leitura");
+			Set<String> fileLists = new HashSet<>();
+			fileLists = Stream.of(new File("C:/data/").listFiles())
+		      .filter(file -> !file.isDirectory())
+		      .map(File::getName)
+		      .collect(Collectors.toSet());
+			
+			for (String filename : fileLists) {
+				System.out.println(filename);
+				new Thread("" + filename){
+				        public void run(){
+				          System.out.println("Thread:  running");
+				          addLinesToBase(filename, kindImport);
+				        }
+				      }.start();
+			}
+			return "Operação executada!";
+	 }
+	 
+	 
+	 public void addLinesToBase(String file)  {//chamada anterior envia 1
+		 Integer kindImport = 1;
+		 addLinesToBase(file, kindImport);
+	 }
+	 
+	 public void addLinesToBase(String file,Integer kindImport)  {//parametro para chamada nova com validação
 		 JSONParser parser = new JSONParser();
 		 Object obj;
 		 try {
 				obj = parser.parse(new FileReader("C:/data/"+file));
 		        JSONObject jsonObject = (JSONObject)obj;
 		        JSONArray jsonArray = (JSONArray) jsonObject.get("data");
-		        @SuppressWarnings("unchecked")
-				Iterator<JSONObject> iterator = jsonArray.iterator();
 		        
-				while (iterator.hasNext()) {
-					if(iterator.next().equals(null)) {
-						return;
-					}
-					JSONObject lineObject = iterator.next();
+		        for (Iterator iterator = jsonArray.iterator(); iterator.hasNext();) {
+					JSONObject lineObject = (JSONObject) iterator.next();
 					System.out.println(file);
-					System.out.println(iterator.next());
-					System.out.println(iterator.next());
+					System.out.println(lineObject);
 					String product = (String) lineObject.get("product");
 				    //System.out.println(product);
 				    long quantity = (long) lineObject.get("quantity");
@@ -161,7 +191,14 @@ public class ProductBusinessObject {
 				    productToInsert.setPrice(price);
 				    productToInsert.setQuantity(quantity);
 				    productToInsert.setType(type);
-				    productRepository.save(productToInsert);
+				    if(kindImport >= 2) {
+				    	productToInsert.setIndustry(industry);
+				    	this.addProductWithValidation(productToInsert);
+				    }else {
+				    	productRepository.save(productToInsert);
+				    }
+				    
+				    
 				    
 				}
 				

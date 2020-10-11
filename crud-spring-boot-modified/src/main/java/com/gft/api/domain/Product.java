@@ -1,10 +1,10 @@
 package com.gft.api.domain;
 
+import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-
 
 
 @Entity
@@ -14,11 +14,25 @@ public class Product {
 	@Id
 	@GeneratedValue
 	private long id;
+	
+	
+	@Column(name = "PRODUCT")
 	private String product;
+	
+	@Column(name = "QUANTITY")
 	private long quantity;
+	
+	@Column(name = "PRICE")
 	private String price;
+	
+	@Column(name = "TYPE")
 	private String type;
+	
+	@Column(name = "ORIGIN")
 	private String origin;
+	
+	@Column(name = "INDUSTRY")
+	private String industry;
 
 
 	
@@ -26,7 +40,8 @@ public class Product {
 		super();
 		
 	}
-	public Product(long id, String product, long quantity, String price, String type, String origin) {
+	
+	public Product(long id, String product, long quantity, String price, String type, String origin, String industry) {
 		super();
 		this.id = id;
 		this.product = product;
@@ -34,7 +49,9 @@ public class Product {
 		this.price = price;
 		this.type = type;
 		this.origin = origin;
+		this.industry = industry;
 	}
+
 	public long getId() {
 		return id;
 	}
@@ -70,6 +87,12 @@ public class Product {
 	}
 	public void setType(String type) {
 		this.type = type;
+	}
+	public String getIndustry() {
+		return industry;
+	}
+	public void setIndustry(String industry) {
+		this.industry = industry;
 	}
 
 
