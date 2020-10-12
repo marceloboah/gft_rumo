@@ -104,16 +104,20 @@ Parte 3: Reimportar dados:
 Este item ainda não foi testado mas está disponível em
 http://localhost:9099/api/clean/import
 
-OBS: Falta busca e paginação.
+OBS: Falta paginação.
 
 
 --------------------------------
 Alterações
 
+1.0.1-RELEASE
 A solução no endpoint http://localhost:9099/api/initreader foi alterada e foi corrigido um bug de iteração a cada duas linhas. No momento dos testes foi verificado que a coluna industry não consta como chave e neste caso o método save não soluciona o problema.
 
 Foi criado um novo endpoint http://localhost:9099/api/import/validation com validação de busca no banco que passa a ser a solução principal. O código anterior se mantém no programa para fins de comparação.
 
+
+1.0.2-RELEASE
+Realizada busca.
 
 
 

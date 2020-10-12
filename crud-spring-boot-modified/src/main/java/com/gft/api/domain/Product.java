@@ -1,5 +1,7 @@
 package com.gft.api.domain;
 
+import java.math.BigDecimal;
+
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -23,7 +25,7 @@ public class Product {
 	private long quantity;
 	
 	@Column(name = "PRICE")
-	private String price;
+	private Double price;
 	
 	@Column(name = "TYPE")
 	private String type;
@@ -41,7 +43,7 @@ public class Product {
 		
 	}
 	
-	public Product(long id, String product, long quantity, String price, String type, String origin, String industry) {
+	public Product(long id, String product, long quantity, Double price, String type, String origin, String industry) {
 		super();
 		this.id = id;
 		this.product = product;
@@ -70,10 +72,10 @@ public class Product {
 	public void setQuantity(long quantity) {
 		this.quantity = quantity;
 	}
-	public String getPrice() {
+	public Double getPrice() {
 		return price;
 	}
-	public void setPrice(String price) {
+	public void setPrice(Double price) {
 		this.price = price;
 	}
 	public String getOrigin() {

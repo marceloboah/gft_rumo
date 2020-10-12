@@ -86,7 +86,7 @@ public class ProductTest {
 		Product product = new Product();
 		//product.setId(3);
 		product.setOrigin("Marcelo");
-		product.setPrice("2");
+		product.setPrice(2.9);
 		product.setQuantity(20);
 		product.setType("145");
 		Mockito.when(mock.addProduct(product)).thenReturn(product);

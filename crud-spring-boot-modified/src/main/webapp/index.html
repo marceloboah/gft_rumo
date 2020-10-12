@@ -57,37 +57,22 @@
 				</div>
 				<form name="formFindById" ng-show="option == 4">
 					<div class="row">
-						<div class="col-6" ng-show="found">
-							<div class="form-group col-6">
-								<label for="chassisSeriesFind">Product</label>
-								<input id="chassisSeriesFind" class="form-control" type="text" ng-model="name" required>
-							</div>
-						</div>
-						<div class="col-6" ng-show="found">
-							<div class="form-group col-6">
-								<label for="valminNumberFind">Price Min $</label>
-								<input type="number" id="valminNumberFind" class="form-control" ng-model="valmin" min="0" required>
-							</div>
-							<div class="form-group col-6">
-								<label for="valmaxNumberFind">Price Max $</label>
-								<input type="number" id="valmaxNumberFind" class="form-control" ng-model="valmax" min="0" required>
-							</div>
-						</div>
+						
 						<div class="col-6" ng-hide="found">
 							<div class="row">
 								<div class="form-group col-6">
 									<label for="chassisSeriesFind">Product</label>
-									<input id="chassisSeriesFind" class="form-control" type="text" ng-model="name" required>
+									<input id="chassisSeriesFind" class="form-control" type="text" ng-model="search.name" >
 								</div>
 							</div>
 							<div class="row">
 								<div class="form-group col-6">
 									<label for="valminNumberFind">Price Min $</label>
-									<input type="number" id="valminNumberFind" class="form-control" ng-model="valmin" min="0" required>
+									<input type="text" id="valminNumberFind" class="form-control" onkeypress="return event.charCode >= 48 && event.charCode <= 57" ng-model="search.floor" >
 								</div>
 								<div class="form-group col-6">
 									<label for="valmaxNumberFind">Price Max $</label>
-									<input type="number" id="valmaxNumberFind" class="form-control" ng-model="valmax" min="0" required>
+									<input type="text" id="valmaxNumberFind" class="form-control" onkeypress="return event.charCode >= 48 && event.charCode <= 57" ng-model="search.max"  >
 								</div>							
 							</div>
 							<div class="row" style="margin-top: 25px">
@@ -96,8 +81,33 @@
 								</div>
 							</div>
 						</div>
-						<div class="col-6">
-							<img src="images/gft.jpg" class="img-fluid" style="max-width:80%" alt="VOLVO Logo">
+						<div class="col-6" ng-hide="found">
+							<img src="images/gft.jpg" class="img-fluid" style="max-width:80%" alt="Logo">
+						</div>
+						<div class="col-12">
+						
+							<div ng-show="showtable">
+								<table class="table table-hover" style="width: 88.7%">
+									<thead>
+										<tr>
+											<th>Product</th>
+											<th>Type</th>
+											<th>Price</th>
+											<th>Origin</th>
+											<th>Qty</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr ng-repeat="products in listOfProducts">
+											<td> {{products.product}} </td>
+											<td> {{products.type}} </td>
+											<td> {{products.price}} </td>
+											<td> {{products.origin}} </td>
+											<td> {{products.quantity}} </td>
+										</tr>
+									</tbody>
+								</table>
+						    </div>
 						</div>
 					</div>
 				</form>

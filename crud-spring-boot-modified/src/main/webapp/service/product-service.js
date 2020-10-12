@@ -4,8 +4,8 @@ angular.module('gftApplication').service('productService',['$http',function($htt
 		getProducts: function() {
 			return $http.get("api/products");
 		},
-		findProductsBySearch: function(name, valmim, valmax) {
-			return $http.get("api/products/" + name + "/valmim/" + valmim+ "/valmax/" + valmax);
+		findProductsBySearch: function(name, floor, valmax) {
+			return $http.get("api/products/find?name=" + name + "&floor=" + floor+ "&valmax=" + valmax);
 		}
 	}
 	
