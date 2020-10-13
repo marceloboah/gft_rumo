@@ -101,7 +101,7 @@ http://localhost:9099/api/products
 Também é possível acessar o menu Lista All Products.
 
 Parte 3: Reimportar dados:
-Este item ainda não foi testado mas está disponível em
+Este item está disponível em
 http://localhost:9099/api/clean/import
 
 OBS: Falta paginação.
@@ -119,6 +119,7 @@ Foi criado um novo endpoint http://localhost:9099/api/import/validation com vali
 1.0.2-RELEASE
 Realizada busca.
 
-
+1.0.3-RELEASE
+Realizada paginação.
 
 

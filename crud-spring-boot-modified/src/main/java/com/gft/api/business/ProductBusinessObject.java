@@ -16,9 +16,11 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.gft.api.domain.Product;
+import com.gft.api.dto.PaginationDTO;
 import com.gft.api.exception.ProductNotFoundException;
 import com.gft.api.repository.ProductRepository;
 
@@ -34,11 +36,30 @@ public class ProductBusinessObject {
 		 return productRepository.findById(id).orElseThrow(() -> new ProductNotFoundException(id));
    }
 	
-    public List<Product> getProducts() {
+	public List<Product> getProducts() {
         return (List<Product>) productRepository.findAll();
     }
+	
+	public Product getAllProductsByPage(Integer paginaatual) {
+		Product retorno = (Product) productRepository.getAllProductsByPage(paginaatual);
+		
+		PaginationDTO pagination = this.calculaPaginacao(retorno.getPagenumber(),retorno.getPagetotallines());
+		retorno.setPagination(pagination);
+        return retorno;
+		
+	}
+	
+	//configurar Pageable
+	@SuppressWarnings({ "unchecked", "null" })
+	public List<Product> getProductsByPage(Integer page) {
+		Pageable pageable = null;
+		pageable.setMaxPageSize(50);
+    	pageable.setDefaultPageSize(50);
+    	pageable.setPageParameter(String.valueOf(page));
+        return (List<Product>) productRepository.findAllByPage(pageable);
+    }
     
-    public List<Product> getProductsBySearch(String name, String valmin,String valmax) {
+    public Product getProductsBySearch(String name, String valmin,String valmax, Integer paginaatual) {
     	Double min = null;
     	Double max = null;
 		if(valmin != null) {
@@ -47,11 +68,47 @@ public class ProductBusinessObject {
 		if(valmax != null) {
 			max = Double.valueOf(valmax);		
 		}
-		List<Product> lista = (List<Product>) productRepository.getProductsBySearch(name, min, max);
+		Product retorno = (Product) productRepository.getProductsBySearch(name, min, max, paginaatual);
 		
-        return lista;
+		PaginationDTO pagination = this.calculaPaginacao(retorno.getPagenumber(),retorno.getPagetotallines());
+		retorno.setPagination(pagination);
+        return retorno;
     }
     
+    
+    public PaginationDTO calculaPaginacao(Integer pagenumber, Integer totallines) {
+    	PaginationDTO paginationDTO = new PaginationDTO();
+    	
+    	paginationDTO.setMaxperpage(50); 
+    	paginationDTO.setPagenumber(pagenumber);
+    	paginationDTO.setTotallines(totallines);
+    	paginationDTO.setTotalpages(totallines/50);
+    	
+    	if((pagenumber -10) > 0) { //-10
+    		paginationDTO.setShowbackten(true);
+    	}else{
+    		paginationDTO.setShowbackten(false);
+    	}
+    	
+    	if((pagenumber -1) >= 1) {
+    		paginationDTO.setShowbackone(true);
+    	}else{
+    		paginationDTO.setShowbackone(false);
+    	}
+    	
+    	if((pagenumber +1) <= (totallines/50)) {
+    		paginationDTO.setShownextone(true);
+    	}else{
+    		paginationDTO.setShownextone(false);
+    	}
+    	
+    	if((pagenumber +10) < (totallines/50)) {//+10
+    		paginationDTO.setShownextten(true);
+    	}else{
+    		paginationDTO.setShownextten(false);
+    	}
+		return paginationDTO;
+    }
     
     
     public void cleanImport() {

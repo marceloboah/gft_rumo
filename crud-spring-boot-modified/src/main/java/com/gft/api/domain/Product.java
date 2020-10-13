@@ -1,12 +1,19 @@
 package com.gft.api.domain;
 
 import java.math.BigDecimal;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Transient;
+
+import org.springframework.data.domain.Pageable;
+
+import com.gft.api.dto.PaginationDTO;
 
 
 @Entity
@@ -35,15 +42,31 @@ public class Product {
 	
 	@Column(name = "INDUSTRY")
 	private String industry;
+	
+	@Transient
+	private Set<Product> listProducts = new HashSet<Product>();
 
+	@Transient
+	private Pageable pageable;
+	
+	@Transient
+	private Integer pagenumber;
+	
+	@Transient
+	private Integer pagetotallines;
+	
+	@Transient
+	private PaginationDTO pagination;
 
 	
 	public Product() {
 		super();
 		
 	}
-	
-	public Product(long id, String product, long quantity, Double price, String type, String origin, String industry) {
+
+	public Product(long id, String product, long quantity, Double price, String type, String origin, String industry,
+			Set<Product> listProducts, Pageable pageable, Integer pagenumber, Integer pagetotallines,
+			PaginationDTO pagination) {
 		super();
 		this.id = id;
 		this.product = product;
@@ -52,6 +75,11 @@ public class Product {
 		this.type = type;
 		this.origin = origin;
 		this.industry = industry;
+		this.listProducts = listProducts;
+		this.pageable = pageable;
+		this.pagenumber = pagenumber;
+		this.pagetotallines = pagetotallines;
+		this.pagination = pagination;
 	}
 
 	public long getId() {
@@ -96,7 +124,41 @@ public class Product {
 	public void setIndustry(String industry) {
 		this.industry = industry;
 	}
+	public Set<Product> getListProducts() {
+		return listProducts;
+	}
+	public void setListProducts(Set<Product> listProducts) {
+		this.listProducts = listProducts;
+	}
+	public Pageable getPageable() {
+		return pageable;
+	}
+	public void setPageable(Pageable pageable) {
+		this.pageable = pageable;
+	}
+	public Integer getPagenumber() {
+		return pagenumber;
+	}
+	public void setPagenumber(Integer pagenumber) {
+		this.pagenumber = pagenumber;
+	}
+	public Integer getPagetotallines() {
+		return pagetotallines;
+	}
+	public void setPagetotallines(Integer pagetotallines) {
+		this.pagetotallines = pagetotallines;
+	}
 
 
+
+	public PaginationDTO getPagination() {
+		return pagination;
+	}
+
+
+
+	public void setPagination(PaginationDTO pagination) {
+		this.pagination = pagination;
+	}
 
 }

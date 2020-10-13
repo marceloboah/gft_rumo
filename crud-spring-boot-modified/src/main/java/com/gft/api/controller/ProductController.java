@@ -2,7 +2,6 @@ package com.gft.api.controller;
 
 import java.util.List;
 
-import javax.websocket.server.PathParam;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -37,18 +36,19 @@ public class ProductController {
     }
 	
 	@GetMapping("products/find")
-    public List<Product> getProductsBySearch(
+    public Product getProductsBySearch(
     		@RequestParam(value="name",required=false)  String name,
     	   	@RequestParam(value="floor",required=false)  String floor,
-    	   	@RequestParam(value="valmax",required=false) String valmax) {
-		List<Product> list = productBusinessObject.getProductsBySearch(name, floor, valmax);
-		return list;
+    	   	@RequestParam(value="valmax",required=false) String valmax,
+    	   	@RequestParam(value="paginaatual",required=false) Integer paginaatual) {
+		Product retorno = productBusinessObject.getProductsBySearch(name, floor, valmax, paginaatual);
+		return retorno;
     }
 	
 	
 	@GetMapping("products")
-    public List<Product> getProducts() {
-        return productBusinessObject.getProducts();
+    public Product getProducts(@RequestParam(value="page",required=false)  Integer page) {
+        return productBusinessObject.getAllProductsByPage(page);
     }
 	
 	@PutMapping("product")

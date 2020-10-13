@@ -1,11 +1,10 @@
 package com.gft.api.interf;
 
-import java.util.List;
-
 import com.gft.api.domain.Product;
 
 
 public interface ProductRepositoryCustom {
 
-	List<Product> getProductsBySearch(String name, Double valmin, Double valmax);
+	Product getProductsBySearch(String name, Double valmin, Double valmax, Integer paginaatual);
+	Product getAllProductsByPage(Integer paginaatual);
 }
