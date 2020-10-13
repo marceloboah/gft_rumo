@@ -51,6 +51,11 @@ public class ProductController {
         return productBusinessObject.getAllProductsByPage(page);
     }
 	
+	@GetMapping("products/all")
+    public List<Product> getAllProducts() {
+        return productBusinessObject.getProducts();
+    }
+	
 	@PutMapping("product")
     public Product editProduct(@RequestBody Product product) {
 		return productBusinessObject.editProduct(product);

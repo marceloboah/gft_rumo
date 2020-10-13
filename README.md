@@ -91,12 +91,13 @@ Foi utilizado o paralelismo através de abertura de uma Thread para cada arquivo
 
 
 Parte 2: Consultar dados:
-Este item ainda não está pronte e deverá fica acessível no endpoint através de busca. 
-http://localhost:9099/api/products/{name}/valmin/{valmin}/valmax/{valmax}
+Este item fica acessível no endpoint através de busca. 
+http://localhost:9099/api/api/products/find?name={nomeProduto}&floor={valorMinimo}&valmax={valorMaximo}&paginaatual={numeroPagina}
+
 Também será possível acessar o menu Find Products.
 
 A visualização dos dados também é possível através do endpoint 
-http://localhost:9099/api/products
+http://localhost:9099/api/products/all
 
 Também é possível acessar o menu Lista All Products.
 
