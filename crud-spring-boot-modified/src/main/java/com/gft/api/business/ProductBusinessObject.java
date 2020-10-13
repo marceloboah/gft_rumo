@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -21,6 +22,7 @@ import org.springframework.stereotype.Service;
 
 import com.gft.api.domain.Product;
 import com.gft.api.dto.PaginationDTO;
+import com.gft.api.dto.ProductDTO;
 import com.gft.api.exception.ProductNotFoundException;
 import com.gft.api.repository.ProductRepository;
 
@@ -73,6 +75,36 @@ public class ProductBusinessObject {
 		PaginationDTO pagination = this.calculaPaginacao(retorno.getPagenumber(),retorno.getPagetotallines());
 		retorno.setPagination(pagination);
         return retorno;
+    }
+    
+    
+    
+    public List<ProductDTO> getProductsByList(String name, String valmin,String valmax, Integer paginaatual) {
+    	Double min = null;
+    	Double max = null;
+		if(valmin != null && valmin != "null") {
+			min = Double.valueOf(valmin);		
+		}
+		if(valmax != null && valmax != "null") {
+			max = Double.valueOf(valmax);		
+		}
+		List<ProductDTO> lista = new ArrayList<ProductDTO>();
+		List<Product> retorno = (List<Product>) productRepository.getProductsByList(name, min, max, paginaatual);
+		if(retorno.size()>0) {//Coloca no DTO para melhorar a visualização devido aos Transients montados em Product
+			for (Product product : retorno) {
+				ProductDTO p = new ProductDTO();
+				p.setProduct(product.getProduct());
+				p.setQuantity(product.getQuantity());
+				p.setPrice(product.getPrice());
+				p.setType(product.getType());
+				p.setOrigin(product.getOrigin());
+				p.setIndustry(product.getIndustry());
+				lista.add(p);
+			}
+			
+		}
+		
+        return lista;
     }
     
     

@@ -108,4 +108,69 @@ public class ProductRepositoryImpl implements ProductCustomMethods{
         return retorno;
 	}
 
+
+	@Override
+	public List<Product> getProductsByList(String name, Double valmin, Double valmax, Integer paginaatual) {
+		Product retorno = new Product();
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<Product> criteriaQuery = cb.createQuery(Product.class);
+        Root<Product> ptable = criteriaQuery.from(Product.class);
+        
+        criteriaQuery.select(ptable);
+        
+        List<Predicate> predicates = new ArrayList<>();
+        
+        if (name !=  null && !name.equals("null")) {
+            predicates.add(cb.like(ptable.get("product"), name));
+            if (valmin > -1 && valmax > -1) {
+                
+                predicates.add(cb.between(ptable.get("price"), valmin, valmax));
+            }
+            
+            criteriaQuery.select(ptable).where(predicates.toArray(new Predicate[predicates.size()]));
+            criteriaQuery.orderBy(cb.asc(ptable.get("product")));
+
+
+            
+            //List<Product> list = em.createQuery(criteriaQuery).getResultList();
+            
+            TypedQuery<Product> query = em.createQuery(criteriaQuery);
+
+            int totalRows = query.getResultList().size();
+            retorno.setPagetotallines(totalRows);
+            retorno.setPagenumber(paginaatual);
+            query.setFirstResult(paginaatual * 50);
+            query.setMaxResults(50);
+            
+            List<Product> list = query.getResultList();
+            
+            //List<Product> list = em.createQuery(criteriaQuery).getResultList();
+            
+            
+            return list;
+        }else {
+        	
+        	if (valmin > -1 && valmax > -1) {
+                
+            	criteriaQuery.select(ptable).where(cb.between(ptable.get("price"), valmin, valmax));
+            	criteriaQuery.orderBy(cb.asc(ptable.get("product")));
+            }
+         
+        	//List<Product> list = em.createQuery(criteriaQuery).getResultList();
+            
+        	TypedQuery<Product> query = em.createQuery(criteriaQuery);
+
+            int totalRows = query.getResultList().size();
+            retorno.setPagetotallines(totalRows);
+            retorno.setPagenumber(paginaatual);
+            query.setFirstResult(paginaatual * 50);
+            query.setMaxResults(50);
+            
+            List<Product> list = query.getResultList();
+            
+            return list;
+        	
+        }
+	}
+
 }

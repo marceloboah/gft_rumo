@@ -92,7 +92,28 @@ Foi utilizado o paralelismo através de abertura de uma Thread para cada arquivo
 
 Parte 2: Consultar dados:
 Este item fica acessível no endpoint através de busca. 
+(Solução 1) Via tela de menu (Regras no Javascript)
 http://localhost:9099/api/api/products/find?name={nomeProduto}&floor={valorMinimo}&valmax={valorMaximo}&paginaatual={numeroPagina}
+
+Para este item a visualização é recomendável via tela de menu.
+
+Exemplos
+http://localhost:9099/api/products/find?name=RTIX&floor=3&valmax=4&paginaatual=1
+
+http://localhost:9099/api/products/find?name="RTIX"&floor=3&valmax=4&paginaatual=1
+
+http://localhost:9099/api/products/find?name=null&floor=3&valmax=4&paginaatual=1
+
+É obrigatório o campo página atual
+
+(Solução 2) Via endpoint REST (Endpoint não possui regras de combinação)
+Foi realizada uma redundancia da solucação para melhor visuallização via endpoint.
+http://localhost:9099/api/api/products/search?name={nomeProduto}&floor={valorMinimo}&valmax={valorMaximo}&paginaatual={numeroPagina}
+
+Exemplos
+http://localhost:9099/api/products/search?name=RTIX&floor=3&valmax=6&paginaatual=1
+
+http://localhost:9099/api/products/search?name=null&floor=3&valmax=6&paginaatual=2
 
 Também será possível acessar o menu Find Products.
 
