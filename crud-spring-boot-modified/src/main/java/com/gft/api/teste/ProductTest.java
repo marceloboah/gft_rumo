@@ -13,6 +13,8 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.web.context.WebApplicationContext;
@@ -29,6 +31,8 @@ import com.gft.api.repository.ProductRepository;
 public class ProductTest {
 	
 	//Classe para Testes unitários Usando @InjectMocks não executados na subida do servidor
+	
+	private static final Logger log = LoggerFactory.getLogger(ProductTest.class);
 	
 	@InjectMocks
 	private ProductController productController;
@@ -64,7 +68,7 @@ public class ProductTest {
 		List<Product> list = productBusinessObject.getProducts();
 		for (Iterator<Product> iterator = list.iterator(); iterator.hasNext();) {
 			Product product = (Product) iterator.next();
-			System.out.println(product.getProduct());
+			log.info(product.getProduct());
 		}
 	}
 	
@@ -104,7 +108,7 @@ public class ProductTest {
 	}
 	
 	private static void p(String text) {
-        System.out.println(text);
+		log.info(text);
     }
 	
 }

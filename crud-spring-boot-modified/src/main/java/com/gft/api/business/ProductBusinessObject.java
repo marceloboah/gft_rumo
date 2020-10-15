@@ -16,9 +16,13 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties.Pageable;
 import org.springframework.stereotype.Service;
+
+
 
 import com.gft.api.domain.Product;
 import com.gft.api.dto.PaginationDTO;
@@ -30,6 +34,8 @@ import com.gft.api.repository.ProductRepository;
 
 @Service
 public class ProductBusinessObject {
+	
+	private static final Logger log = LoggerFactory.getLogger(ProductBusinessObject.class);
 	
 	@Autowired
 	private ProductRepository productRepository;
@@ -162,9 +168,6 @@ public class ProductBusinessObject {
     public Product addProductWithValidation(Product product) {
     	Product productVerify = new Product();
     	productVerify = productRepository.findProductByParam(product.getOrigin(),product.getProduct(),product.getQuantity(),product.getPrice(),product.getType());
-    	if(productVerify != null && productVerify.getProduct().equals("TKC")) {
-    		System.out.println(productVerify.getId());
-    	}
     	if (productVerify != null && productVerify.getId()>1) {
     		product.setId(productVerify.getId());
     		return productRepository.save(product);//Atualiza produto existente
@@ -204,7 +207,7 @@ public class ProductBusinessObject {
 	 }
 	 
 	 public String readFiles()  {
-			System.out.println("Iniciar leitura");
+		    log.info("Iniciar leitura");
 			Set<String> fileLists = new HashSet<>();
 			fileLists = Stream.of(new File("C:/data/").listFiles())
 		      .filter(file -> !file.isDirectory())
@@ -212,10 +215,10 @@ public class ProductBusinessObject {
 		      .collect(Collectors.toSet());
 			
 			for (String filename : fileLists) {
-				System.out.println(filename);
+				log.info(filename);
 				new Thread("" + filename){
 				        public void run(){
-				          System.out.println("Thread:  running");
+				        	log.info("Thread:  running");
 				          addLinesToBase(filename);
 				        }
 				      }.start();
@@ -225,7 +228,7 @@ public class ProductBusinessObject {
 	 
 	 
 	 public String readFiles(Integer kindImport)  {
-			System.out.println("Iniciar leitura");
+		    log.info("Iniciar leitura");
 			Set<String> fileLists = new HashSet<>();
 			fileLists = Stream.of(new File("C:/data/").listFiles())
 		      .filter(file -> !file.isDirectory())
@@ -233,10 +236,10 @@ public class ProductBusinessObject {
 		      .collect(Collectors.toSet());
 			
 			for (String filename : fileLists) {
-				System.out.println(filename);
+				log.info(filename);
 				new Thread("" + filename){
 				        public void run(){
-				          System.out.println("Thread:  running");
+				          log.info("Thread:  running");
 				          addLinesToBase(filename, kindImport);
 				        }
 				      }.start();
@@ -260,22 +263,22 @@ public class ProductBusinessObject {
 		        
 		        for (Iterator iterator = jsonArray.iterator(); iterator.hasNext();) {
 					JSONObject lineObject = (JSONObject) iterator.next();
-					System.out.println(file);
-					System.out.println(lineObject);
+					log.info(file);
+					log.info(String.valueOf(lineObject));
 					String product = (String) lineObject.get("product");
-				    //System.out.println(product);
+				    //log.info(product);
 				    long quantity = (long) lineObject.get("quantity");
-				    //System.out.println(quantity+"");
+				    //log.info(quantity+"");
 				    String pricestr = (String) lineObject.get("price");
 				    pricestr = pricestr.substring(1, pricestr.length());  
 				    Double price = new Double(pricestr);
-			        //System.out.println(price);
+			        //log.info(price);
 				    String origin = (String) lineObject.get("origin");
-				    //System.out.println(origin);
+				    //log.info(origin);
 				    String industry = (String) lineObject.get("industry");
-				    //System.out.println(industry);
+				    //log.info(industry);
 				    String type = (String) lineObject.get("type");
-				    //System.out.println(type);
+				    //log.info(type);
 				    
 				    Product productToInsert = new Product();
 				   // productToInsert.setId(2);

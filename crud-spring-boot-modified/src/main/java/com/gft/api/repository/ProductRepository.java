@@ -3,12 +3,14 @@ package com.gft.api.repository;
 import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.gft.api.domain.Product;
 import com.gft.api.interf.ProductRepositoryCustom;
 
 @Transactional
+@Repository
 public interface ProductRepository extends CrudRepository<Product, Long> , ProductRepositoryCustom {
 	
 	@Query("SELECT p FROM Product p WHERE p.origin = ?1 and p.product = ?2 and p.quantity = ?3 and p.price = ?4 and p.type = ?5 ")
