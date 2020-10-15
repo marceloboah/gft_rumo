@@ -51,7 +51,7 @@ public class ProductBusinessObject {
 	public Product getAllProductsByPage(Integer paginaatual) {
 		Product retorno = (Product) productRepository.getAllProductsByPage(paginaatual);
 		
-		PaginationDTO pagination = this.calculaPaginacao(retorno.getPagenumber(),retorno.getPagetotallines());
+		PaginationDTO pagination = this.calculaPaginacao(retorno.getPageNumber(),retorno.getPageTotalLines());
 		retorno.setPagination(pagination);
         return retorno;
 		
@@ -67,25 +67,25 @@ public class ProductBusinessObject {
         return (List<Product>) productRepository.findAllByPage(pageable);
     }
     
-    public Product getProductsBySearch(String name, String valmin,String valmax, Integer paginaatual) {
+    public Product getProductsBySearch(String name, String floor,String valmax, Integer page) {
     	Double min = null;
     	Double max = null;
-		if(valmin != null) {
-			min = Double.valueOf(valmin);		
+		if(!floor.equals(null)  && !floor.equals("null")) {
+			min = Double.valueOf(floor);		
 		}
-		if(valmax != null) {
+		if(!valmax.equals(null)  && !valmax.equals("null")) {
 			max = Double.valueOf(valmax);		
 		}
-		Product retorno = (Product) productRepository.getProductsBySearch(name, min, max, paginaatual);
+		Product retorno = (Product) productRepository.getProductsBySearch(name, min, max, page);
 		
-		PaginationDTO pagination = this.calculaPaginacao(retorno.getPagenumber(),retorno.getPagetotallines());
+		PaginationDTO pagination = this.calculaPaginacao(retorno.getPageNumber(),retorno.getPageTotalLines());
 		retorno.setPagination(pagination);
         return retorno;
     }
     
     
     
-    public List<ProductDTO> getProductsByList(String name, String valmin,String valmax, Integer paginaatual) {
+    public List<ProductDTO> getProductsByList(String name, String valmin,String valmax, Integer page) {
     	Double min = null;
     	Double max = null;
 		if(valmin != null && valmin != "null") {
@@ -95,7 +95,7 @@ public class ProductBusinessObject {
 			max = Double.valueOf(valmax);		
 		}
 		List<ProductDTO> lista = new ArrayList<ProductDTO>();
-		List<Product> retorno = (List<Product>) productRepository.getProductsByList(name, min, max, paginaatual);
+		List<Product> retorno = (List<Product>) productRepository.getProductsByList(name, min, max, page);
 		if(retorno.size()>0) {//Coloca no DTO para melhorar a visualização devido aos Transients montados em Product
 			for (Product product : retorno) {
 				ProductDTO p = new ProductDTO();
@@ -114,36 +114,36 @@ public class ProductBusinessObject {
     }
     
     
-    public PaginationDTO calculaPaginacao(Integer pagenumber, Integer totallines) {
+    public PaginationDTO calculaPaginacao(Integer pageNumber, Integer totalLines) {
     	PaginationDTO paginationDTO = new PaginationDTO();
     	
-    	paginationDTO.setMaxperpage(50); 
-    	paginationDTO.setPagenumber(pagenumber);
-    	paginationDTO.setTotallines(totallines);
-    	paginationDTO.setTotalpages(totallines/50);
+    	paginationDTO.setMaxPerPage(50); 
+    	paginationDTO.setPageNumber(pageNumber);
+    	paginationDTO.setTotalLines(totalLines);
+    	paginationDTO.setTotalPages(totalLines/50);
     	
-    	if((pagenumber -10) > 0) { //-10
-    		paginationDTO.setShowbackten(true);
+    	if((pageNumber -10) > 0) { //-10
+    		paginationDTO.setShowBackTen(true);
     	}else{
-    		paginationDTO.setShowbackten(false);
+    		paginationDTO.setShowBackTen(false);
     	}
     	
-    	if((pagenumber -1) >= 1) {
-    		paginationDTO.setShowbackone(true);
+    	if((pageNumber -1) >= 1) {
+    		paginationDTO.setShowBackOne(true);
     	}else{
-    		paginationDTO.setShowbackone(false);
+    		paginationDTO.setShowBackOne(false);
     	}
     	
-    	if((pagenumber +1) <= (totallines/50)) {
-    		paginationDTO.setShownextone(true);
+    	if((pageNumber +1) <= (totalLines/50)) {
+    		paginationDTO.setShowNextOne(true);
     	}else{
-    		paginationDTO.setShownextone(false);
+    		paginationDTO.setShowNextOne(false);
     	}
     	
-    	if((pagenumber +10) < (totallines/50)) {//+10
-    		paginationDTO.setShownextten(true);
+    	if((pageNumber +10) < (totalLines/50)) {//+10
+    		paginationDTO.setShowNextTen(true);
     	}else{
-    		paginationDTO.setShownextten(false);
+    		paginationDTO.setShowNextTen(false);
     	}
 		return paginationDTO;
     }
@@ -263,8 +263,8 @@ public class ProductBusinessObject {
 		        
 		        for (Iterator iterator = jsonArray.iterator(); iterator.hasNext();) {
 					JSONObject lineObject = (JSONObject) iterator.next();
-					log.info(file);
-					log.info(String.valueOf(lineObject));
+					//log.info(file);
+					//log.info(String.valueOf(lineObject));
 					String product = (String) lineObject.get("product");
 				    //log.info(product);
 				    long quantity = (long) lineObject.get("quantity");

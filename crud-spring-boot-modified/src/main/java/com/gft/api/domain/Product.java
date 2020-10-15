@@ -50,10 +50,10 @@ public class Product {
 	private Pageable pageable;
 	
 	@Transient
-	private Integer pagenumber;
+	private Integer pageNumber;
 	
 	@Transient
-	private Integer pagetotallines;
+	private Integer pageTotalLines;
 	
 	@Transient
 	private PaginationDTO pagination;
@@ -65,7 +65,7 @@ public class Product {
 	}
 
 	public Product(long id, String product, long quantity, Double price, String type, String origin, String industry,
-			Set<Product> listProducts, Pageable pageable, Integer pagenumber, Integer pagetotallines,
+			Set<Product> listProducts, Pageable pageable, Integer pageNumber, Integer pageTotalLines,
 			PaginationDTO pagination) {
 		super();
 		this.id = id;
@@ -77,8 +77,8 @@ public class Product {
 		this.industry = industry;
 		this.listProducts = listProducts;
 		this.pageable = pageable;
-		this.pagenumber = pagenumber;
-		this.pagetotallines = pagetotallines;
+		this.pageNumber = pageNumber;
+		this.pageTotalLines = pageTotalLines;
 		this.pagination = pagination;
 	}
 
@@ -136,17 +136,17 @@ public class Product {
 	public void setPageable(Pageable pageable) {
 		this.pageable = pageable;
 	}
-	public Integer getPagenumber() {
-		return pagenumber;
+	public Integer getPageNumber() {
+		return pageNumber;
 	}
-	public void setPagenumber(Integer pagenumber) {
-		this.pagenumber = pagenumber;
+	public void setPageNumber(Integer pageNumber) {
+		this.pageNumber = pageNumber;
 	}
-	public Integer getPagetotallines() {
-		return pagetotallines;
+	public Integer getPageTotalLines() {
+		return pageTotalLines;
 	}
-	public void setPagetotallines(Integer pagetotallines) {
-		this.pagetotallines = pagetotallines;
+	public void setPageTotalLines(Integer pageTotalLines) {
+		this.pageTotalLines = pageTotalLines;
 	}
 
 

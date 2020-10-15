@@ -98,22 +98,22 @@ http://localhost:9099/api/api/products/find?name={nomeProduto}&floor={valorMinim
 Para este item a visualização é recomendável via tela de menu.
 
 Exemplos
-http://localhost:9099/api/products/find?name=RTIX&floor=3&valmax=4&paginaatual=1
+http://localhost:9099/api/products/find?name=RTIX&floor=3&valmax=4&page=1
 
-http://localhost:9099/api/products/find?name="RTIX"&floor=3&valmax=4&paginaatual=1
+http://localhost:9099/api/products/find?name="RTIX"&floor=3&valmax=4&page=1
 
-http://localhost:9099/api/products/find?name=null&floor=3&valmax=4&paginaatual=1
+http://localhost:9099/api/products/find?name=null&floor=3&valmax=4&page=1
 
 É obrigatório o campo página atual
 
-(Solução 2) Via endpoint REST (Endpoint não possui regras de combinação)
+(Solução 2) Via endpoint REST 
 Foi realizada uma redundancia da solucação para melhor visuallização via endpoint.
 http://localhost:9099/api/api/products/search?name={nomeProduto}&floor={valorMinimo}&valmax={valorMaximo}&paginaatual={numeroPagina}
 
 Exemplos
-http://localhost:9099/api/products/search?name=RTIX&floor=3&valmax=6&paginaatual=1
+http://localhost:9099/api/products/search?name=RTIX&floor=3&valmax=6&page=1
 
-http://localhost:9099/api/products/search?name=null&floor=3&valmax=6&paginaatual=2
+http://localhost:9099/api/products/search?name=null&floor=3&valmax=6&page=2
 
 Também será possível acessar o menu Find Products.
 
@@ -144,4 +144,5 @@ Realizada busca.
 1.0.3-RELEASE
 Realizada paginação.
 
-
+1.0.3-RELEASE
+Colocado camel case, retirados SYstem.ou.println() e colocado log no lugar. Criação de Junit com http get() (comentado). Adição de chamada de importação no start da aplicação.

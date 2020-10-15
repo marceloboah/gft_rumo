@@ -43,8 +43,8 @@ public class ProductController {
     		@RequestParam(value="name",required=false)  String name,
     	   	@RequestParam(value="floor",required=false)  String floor,
     	   	@RequestParam(value="valmax",required=false) String valmax,
-    	   	@RequestParam(value="paginaatual",required=false) Integer paginaatual) {
-		Product retorno = productBusinessObject.getProductsBySearch(name, floor, valmax, paginaatual);
+    	   	@RequestParam(value="page",required=false) Integer page) {
+		Product retorno = productBusinessObject.getProductsBySearch(name, floor, valmax, page);
 		return retorno;
     }
 	
@@ -53,8 +53,8 @@ public class ProductController {
     		@RequestParam(value="name")  String name,
     		@RequestParam(value="floor")  String floor,
     		@RequestParam(value="valmax") String valmax,
-    		@RequestParam(value="paginaatual") Integer paginaatual) {
-		List<ProductDTO> retorno = productBusinessObject.getProductsByList(name, floor, valmax, paginaatual);
+    		@RequestParam(value="page") Integer page) {
+		List<ProductDTO> retorno = productBusinessObject.getProductsByList(name, floor, valmax, page);
 		return retorno;
     }
 	

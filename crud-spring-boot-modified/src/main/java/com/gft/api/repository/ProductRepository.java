@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.gft.api.domain.Product;
 import com.gft.api.interf.ProductRepositoryCustom;
 
-@Transactional
+//@Transactional
 @Repository
 public interface ProductRepository extends CrudRepository<Product, Long> , ProductRepositoryCustom {
 	

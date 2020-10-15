@@ -56,18 +56,18 @@
 					<table>
 					    <thead>
 					        <tr>
-					            <th><a href="" ng-click="minusten()" ng-show="paginate.showbackten"><span aria-hidden="true"><<<</span></a></th>
-					            <th><a href="" ng-click="prev()" ng-show="paginate.showbackone"><span aria-hidden="true"><</span></a></th>
-					            <th><span ng-show="paginate.showatual">{{paginate.pagenumber}}</span></th>
-					            <th><a href="" ng-click="next()" ng-show="paginate.shownextone"><span aria-hidden="true">></span></a></th>
-					            <th><a href="" ng-click="moreten()" ng-show="paginate.shownextten"><span aria-hidden="true">>>></span></a></th>
+					            <th><a href="" ng-click="minusTen()" ng-show="paginate.showBackTen"><span aria-hidden="true"><<<</span></a></th>
+					            <th><a href="" ng-click="prev()" ng-show="paginate.showBackOne"><span aria-hidden="true"><</span></a></th>
+					            <th><span ng-show="paginate.showAtual">{{paginate.pageNumber}}</span></th>
+					            <th><a href="" ng-click="next()" ng-show="paginate.showNextOne"><span aria-hidden="true">></span></a></th>
+					            <th><a href="" ng-click="moreTen()" ng-show="paginate.showNextTen"><span aria-hidden="true">>>></span></a></th>
 					            
 					        </tr>
 					    </thead>
 					</table>
 					<div ng-show="paginate.navigation">
-						<p>Total de {{paginate.totalpages}} paginas</p>
-						<p>Total de {{paginate.totallines}} registros</p>
+						<p>Total de {{paginate.totalPages}} paginas</p>
+						<p>Total de {{paginate.totalLines}} registros</p>
 					</div>
 				</div>
 				<form name="formFindById" ng-show="option == 4">
@@ -101,7 +101,7 @@
 						</div>
 						<div class="col-12">
 						
-							<div ng-show="showtable">
+							<div ng-show="showTable">
 								<table class="table table-hover" style="width: 88.7%">
 									<thead>
 										<tr>
@@ -126,18 +126,18 @@
 						    <table>
 							    <thead>
 							        <tr>
-							            <th><a href="" ng-click="minusten()" ng-show="paginate.showbackten"><span aria-hidden="true"><<<</span></a></th>
-							            <th><a href="" ng-click="prev()" ng-show="paginate.showbackone"><span aria-hidden="true"><</span></a></th>
-							            <th><span ng-show="paginate.showatual">{{paginate.pagenumber}}</span></th>
-							            <th><a href="" ng-click="next()" ng-show="paginate.shownextone"><span aria-hidden="true">></span></a></th>
-							            <th><a href="" ng-click="moreten()" ng-show="paginate.shownextten"><span aria-hidden="true">>>></span></a></th>
+							            <th><a href="" ng-click="minusTen()" ng-show="paginate.showBackTen"><span aria-hidden="true"><<<</span></a></th>
+							            <th><a href="" ng-click="prev()" ng-show="paginate.showBackOne"><span aria-hidden="true"><</span></a></th>
+							            <th><span ng-show="paginate.showAtual">{{paginate.pageNumber}}</span></th>
+							            <th><a href="" ng-click="next()" ng-show="paginate.showNextOne"><span aria-hidden="true">></span></a></th>
+							            <th><a href="" ng-click="moreTen()" ng-show="paginate.showNextTen"><span aria-hidden="true">>>></span></a></th>
 							            
 							        </tr>
 							    </thead>
 							</table>
 							<div ng-show="paginate.navigation">
-								<p>Total de {{paginate.totalpages}} paginas</p>
-								<p>Total de {{paginate.totallines}} registros</p>
+								<p>Total de {{paginate.totalPages}} paginas</p>
+								<p>Total de {{paginate.totalLines}} registros</p>
 							</div>
 						    
 						</div>

@@ -2,121 +2,176 @@ package com.gft.api.dto;
 
 public class PaginationDTO {
 	
-	private Integer pagelessten;
-	private Integer pagelessone;
-	private Integer pagenumber;
-	private Integer pagemoreone;
-	private Integer pagemoreten;
-	private boolean showbackten;
-	private boolean showbackone;
-	private boolean showatual;
-	private boolean shownextone;
-	private boolean shownextten;
-	private Integer totallines;
-	private Integer totalpages;
-	private Integer maxperpage;
+	private Integer pageLessTen;
+	private Integer pageLessOne;
+	private Integer pageNumber;
+	private Integer pageMoreOne;
+	private Integer pageMoreTen;
+	private boolean showBackTen;
+	private boolean showBackOne;
+	private boolean showAtual;
+	private boolean showNextOne;
+	private boolean showNextTen;
+	private Integer totalLines;
+	private Integer totalPages;
+	private Integer maxPerPage;
 	
 	
 	public PaginationDTO() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public PaginationDTO(Integer pagelessten, Integer pagelessone, Integer pagenumber, Integer pagemoreone,
-			Integer pagemoreten, boolean showbackten, boolean showbackone, boolean showatual, boolean shownextone,
-			boolean shownextten, Integer totallines, Integer totalpages, Integer maxperpage) {
+
+
+	public PaginationDTO(Integer pageLessTen, Integer pageLessOne, Integer pageNumber, Integer pageMoreOne,
+			Integer pageMoreTen, boolean showBackTen, boolean showBackOne, boolean showAtual, boolean showNextOne,
+			boolean showNextTen, Integer totalLines, Integer totalPages, Integer maxPerPage) {
 		super();
-		this.pagelessten = pagelessten;
-		this.pagelessone = pagelessone;
-		this.pagenumber = pagenumber;
-		this.pagemoreone = pagemoreone;
-		this.pagemoreten = pagemoreten;
-		this.showbackten = showbackten;
-		this.showbackone = showbackone;
-		this.showatual = showatual;
-		this.shownextone = shownextone;
-		this.shownextten = shownextten;
-		this.totallines = totallines;
-		this.totalpages = totalpages;
-		this.maxperpage = maxperpage;
+		this.pageLessTen = pageLessTen;
+		this.pageLessOne = pageLessOne;
+		this.pageNumber = pageNumber;
+		this.pageMoreOne = pageMoreOne;
+		this.pageMoreTen = pageMoreTen;
+		this.showBackTen = showBackTen;
+		this.showBackOne = showBackOne;
+		this.showAtual = showAtual;
+		this.showNextOne = showNextOne;
+		this.showNextTen = showNextTen;
+		this.totalLines = totalLines;
+		this.totalPages = totalPages;
+		this.maxPerPage = maxPerPage;
 	}
-	public Integer getPagelessten() {
-		return pagelessten;
+
+
+	public Integer getPageLessTen() {
+		return pageLessTen;
 	}
-	public void setPagelessten(Integer pagelessten) {
-		this.pagelessten = pagelessten;
+
+
+	public void setPageLessTen(Integer pageLessTen) {
+		this.pageLessTen = pageLessTen;
 	}
-	public Integer getPagelessone() {
-		return pagelessone;
+
+
+	public Integer getPageLessOne() {
+		return pageLessOne;
 	}
-	public void setPagelessone(Integer pagelessone) {
-		this.pagelessone = pagelessone;
+
+
+	public void setPageLessOne(Integer pageLessOne) {
+		this.pageLessOne = pageLessOne;
 	}
-	public Integer getPagenumber() {
-		return pagenumber;
+
+
+	public Integer getPageNumber() {
+		return pageNumber;
 	}
-	public void setPagenumber(Integer pagenumber) {
-		this.pagenumber = pagenumber;
+
+
+	public void setPageNumber(Integer pageNumber) {
+		this.pageNumber = pageNumber;
 	}
-	public Integer getPagemoreone() {
-		return pagemoreone;
+
+
+	public Integer getPageMoreOne() {
+		return pageMoreOne;
 	}
-	public void setPagemoreone(Integer pagemoreone) {
-		this.pagemoreone = pagemoreone;
+
+
+	public void setPageMoreOne(Integer pageMoreOne) {
+		this.pageMoreOne = pageMoreOne;
 	}
-	public Integer getPagemoreten() {
-		return pagemoreten;
+
+
+	public Integer getPageMoreTen() {
+		return pageMoreTen;
 	}
-	public void setPagemoreten(Integer pagemoreten) {
-		this.pagemoreten = pagemoreten;
+
+
+	public void setPageMoreTen(Integer pageMoreTen) {
+		this.pageMoreTen = pageMoreTen;
 	}
-	public boolean isShowbackten() {
-		return showbackten;
+
+
+	public boolean isShowBackTen() {
+		return showBackTen;
 	}
-	public void setShowbackten(boolean showbackten) {
-		this.showbackten = showbackten;
+
+
+	public void setShowBackTen(boolean showBackTen) {
+		this.showBackTen = showBackTen;
 	}
-	public boolean isShowbackone() {
-		return showbackone;
+
+
+	public boolean isShowBackOne() {
+		return showBackOne;
 	}
-	public void setShowbackone(boolean showbackone) {
-		this.showbackone = showbackone;
+
+
+	public void setShowBackOne(boolean showBackOne) {
+		this.showBackOne = showBackOne;
 	}
-	public boolean isShowatual() {
-		return showatual;
+
+
+	public boolean isShowAtual() {
+		return showAtual;
 	}
-	public void setShowatual(boolean showatual) {
-		this.showatual = showatual;
+
+
+	public void setShowAtual(boolean showAtual) {
+		this.showAtual = showAtual;
 	}
-	public boolean isShownextone() {
-		return shownextone;
+
+
+	public boolean isShowNextOne() {
+		return showNextOne;
 	}
-	public void setShownextone(boolean shownextone) {
-		this.shownextone = shownextone;
+
+
+	public void setShowNextOne(boolean showNextOne) {
+		this.showNextOne = showNextOne;
 	}
-	public boolean isShownextten() {
-		return shownextten;
+
+
+	public boolean isShowNextTen() {
+		return showNextTen;
 	}
-	public void setShownextten(boolean shownextten) {
-		this.shownextten = shownextten;
+
+
+	public void setShowNextTen(boolean showNextTen) {
+		this.showNextTen = showNextTen;
 	}
-	public Integer getTotallines() {
-		return totallines;
+
+
+	public Integer getTotalLines() {
+		return totalLines;
 	}
-	public void setTotallines(Integer totallines) {
-		this.totallines = totallines;
+
+
+	public void setTotalLines(Integer totalLines) {
+		this.totalLines = totalLines;
 	}
-	public Integer getTotalpages() {
-		return totalpages;
+
+
+	public Integer getTotalPages() {
+		return totalPages;
 	}
-	public void setTotalpages(Integer totalpages) {
-		this.totalpages = totalpages;
+
+
+	public void setTotalPages(Integer totalPages) {
+		this.totalPages = totalPages;
 	}
-	public Integer getMaxperpage() {
-		return maxperpage;
+
+
+	public Integer getMaxPerPage() {
+		return maxPerPage;
 	}
-	public void setMaxperpage(Integer maxperpage) {
-		this.maxperpage = maxperpage;
+
+
+	public void setMaxPerPage(Integer maxPerPage) {
+		this.maxPerPage = maxPerPage;
 	}
+	
 	
 	
 	

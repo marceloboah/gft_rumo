@@ -6,30 +6,35 @@ app.controller("gftController", ["$scope", "$http", "$timeout", "productService"
 	$scope.option = -1;
 	$scope.product = {};
 	$scope.search = {};
+	$scope.search.floor = null;
+	$scope.search.max = null;
 	$scope.paginate = {};
-	$scope.paginate.pagenumber = 1;
-	$scope.paginate.pagesize = 50;
+	$scope.paginate.pageNumber = 1;
+	$scope.paginate.pageSize = 50;
 	$scope.paginate.pages = 0;
-	$scope.paginate.shownextten = false;
-	$scope.paginate.showbackten = false;
-	$scope.paginate.showatual = false;
-	$scope.paginate.shownextone = false;
-	$scope.paginate.showbackone = false;
+	$scope.paginate.showNextTen = false;
+	$scope.paginate.showBackTen = false;
+	$scope.paginate.showAtual = false;
+	$scope.paginate.showNextOne = false;
+	$scope.paginate.showBackOne = false;
 	$scope.paginate.navigation = false;
 	
 	$scope.listOfProducts = [];
-	$scope.showtable = false;
+	$scope.showTable = false;
 	
 	$scope.cleanVariables = function() {
 		$scope.found = false;
+		$scope.success=false;
 		$scope.product = {};
 		$scope.name = null;
-		$scope.valmin = null;
+		$scope.floor = null;
 		$scope.valmax = null;
 		$scope.color = null;
+		$scope.showTable = false;
+		$scope.paginate = {}
 		$scope.search = {};
 		$scope.listOfProducts = [];
-		$scope.paginate.pagenumber = 1;
+		$scope.paginate.pageNumber = 1;
 	}
 	
 	$scope.cleanAlerts = function() {
@@ -43,15 +48,15 @@ app.controller("gftController", ["$scope", "$http", "$timeout", "productService"
 	}
 	
 	$scope.listProducts = function() {
-		productService.getProducts($scope.paginate.pagenumber).then(function(response) {
+		productService.getProducts($scope.paginate.pageNumber).then(function(response) {
 			$scope.listOfProducts = response.data.listProducts;
 			$scope.showtable = true;
 			if(Object.keys($scope.listOfProducts).length > 0){
-				$scope.paginate.total = response.data.pagetotallines;
+				$scope.paginate.total = response.data.pageTotaLlines;
 				$scope.paginate = response.data.pagination;
 				$scope.paginate.navigation = true;
-				$scope.showtable = true;
-				$scope.paginate.showatual = true;
+				$scope.showTable = true;
+				$scope.paginate.showAtual = true;
 			}
 			$scope.found = true;
 			
@@ -60,7 +65,7 @@ app.controller("gftController", ["$scope", "$http", "$timeout", "productService"
 	
 	$scope.next = function() {
 		console.log($scope.search);
-		$scope.paginate.pagenumber = $scope.paginate.pagenumber+1;
+		$scope.paginate.pageNumber = $scope.paginate.pageNumber+1;
 		if($scope.option==3){//list
 			$scope.listProducts();
 		}else{//search
@@ -68,23 +73,23 @@ app.controller("gftController", ["$scope", "$http", "$timeout", "productService"
 		}
 	}
 	$scope.prev = function() {
-		$scope.paginate.pagenumber = $scope.paginate.pagenumber-1;
+		$scope.paginate.pageNumber = $scope.paginate.pageNumber-1;
 		if($scope.option==3){//list
 			$scope.listProducts();
 		}else{//search
 			$scope.findProductsBySearch();
 		}
 	}
-	$scope.moreten = function() {
-		$scope.paginate.pagenumber = $scope.paginate.pagenumber+10;
+	$scope.moreTen = function() {
+		$scope.paginate.pageNumber = $scope.paginate.pageNumber+10;
 		if($scope.option==3){//list
 			$scope.listProducts();
 		}else{//search
 			$scope.findProductsBySearch();
 		}
 	}
-	$scope.minusten = function() {
-		$scope.paginate.pagenumber = $scope.paginate.pagenumber-10;
+	$scope.minusTen = function() {
+		$scope.paginate.pageNumber = $scope.paginate.pageNumber-10;
 		if($scope.option==3){//list
 			$scope.listProducts();
 		}else{//search
@@ -106,19 +111,30 @@ app.controller("gftController", ["$scope", "$http", "$timeout", "productService"
 			if($scope.search.name == undefined){
 				$scope.search.name=null;
 			}
+			if($scope.search.floor == undefined){
+				$scope.search.floor=null;
+			}
+			if($scope.search.max == undefined){
+				$scope.search.max=null;
+			}
 				
 					 
-					  productService.findProductsBySearch($scope.search.name, $scope.search.floor, $scope.search.max,$scope.paginate.pagenumber).then(function successCallback(response) {
+					  productService.findProductsBySearch($scope.search.name, $scope.search.floor, $scope.search.max,$scope.paginate.pageNumber).then(function successCallback(response) {
 							$scope.listOfProducts = response.data.listProducts;
-							$scope.showtable = true;
 							if(Object.keys($scope.listOfProducts).length > 0){
-								$scope.paginate.total = response.data.pagetotallines;
+								$scope.found = true;
+								$scope.showTable = true;
+								$scope.paginate.total = response.data.pageTotalLines;
 								$scope.paginate = response.data.pagination;
 								$scope.paginate.navigation = true;
 								$scope.showtable = true;
-								$scope.paginate.showatual = true;
+								$scope.paginate.showAtual = true;
+							}else{
+								$scope.success=true;
+								$scope.alertMessage = "A busca não retornou resultados!";
+								
 							}
-							$scope.found = true;
+							
 						}, function errorCallback(response) {
 							$scope.error=true;
 							$scope.alertMessage = "Product not found in database.";

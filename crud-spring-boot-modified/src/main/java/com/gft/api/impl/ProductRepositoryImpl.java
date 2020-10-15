@@ -26,7 +26,7 @@ public class ProductRepositoryImpl implements ProductCustomMethods{
 
 	
 	@Override
-    public Product getProductsBySearch(String name, Double valmin, Double valmax, Integer paginaatual) {
+    public Product getProductsBySearch(String name, Double valmin, Double valmax, Integer page) {
 		Product retorno = new Product();
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Product> criteriaQuery = cb.createQuery(Product.class);
@@ -38,42 +38,49 @@ public class ProductRepositoryImpl implements ProductCustomMethods{
         
         if (name !=  null && !name.equals("null")) {
             predicates.add(cb.like(ptable.get("product"), name));
-            if (valmin > -1 && valmax > -1) {
-                
-                predicates.add(cb.between(ptable.get("price"), valmin, valmax));
+            if(valmin!= null &&valmax != null) {
+            	if (valmin > -1 && valmax > -1) {
+                    
+                    predicates.add(cb.between(ptable.get("price"), valmin, valmax));
+                }
             }
+            
             
             criteriaQuery.select(ptable).where(predicates.toArray(new Predicate[predicates.size()]));
             criteriaQuery.orderBy(cb.asc(ptable.get("product")));
 
             TypedQuery<Product> query = em.createQuery(criteriaQuery);
 
-            int totalRows = query.getResultList().size();
-            retorno.setPagetotallines(totalRows);
-            retorno.setPagenumber(paginaatual);
-            query.setFirstResult(paginaatual * 50);
-            query.setMaxResults(50);
+            
             
             List<Product> list = query.getResultList();
+            
+            int totalRows = query.getResultList().size();
+            retorno.setPageTotalLines(totalRows);
+            retorno.setPageNumber(page);
+            query.setFirstResult(page * 50);
+            query.setMaxResults(50);
             
             //List<Product> list = em.createQuery(criteriaQuery).getResultList();
             
             retorno.getListProducts().addAll(list);
             return retorno;
         }else {
+        	if(valmin!= null &&valmax != null) {
+        		if (valmin > -1 && valmax > -1) {
+                    
+                	criteriaQuery.select(ptable).where(cb.between(ptable.get("price"), valmin, valmax));
+                	criteriaQuery.orderBy(cb.asc(ptable.get("product")));
+                }
+        	}
         	
-        	if (valmin > -1 && valmax > -1) {
-                
-            	criteriaQuery.select(ptable).where(cb.between(ptable.get("price"), valmin, valmax));
-            	criteriaQuery.orderBy(cb.asc(ptable.get("product")));
-            }
             
         	TypedQuery<Product> query = em.createQuery(criteriaQuery);
 
             int totalRows = query.getResultList().size();
-            retorno.setPagetotallines(totalRows);
-            retorno.setPagenumber(paginaatual);
-            query.setFirstResult(paginaatual * 50);
+            retorno.setPageTotalLines(totalRows);
+            retorno.setPageNumber(page);
+            query.setFirstResult(page * 50);
             query.setMaxResults(50);
             
             List<Product> list = query.getResultList();
@@ -86,7 +93,7 @@ public class ProductRepositoryImpl implements ProductCustomMethods{
 
 
 	@Override
-	public Product getAllProductsByPage(Integer paginaatual) {
+	public Product getAllProductsByPage(Integer page) {
 		Product retorno = new Product();
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Product> criteriaQuery = cb.createQuery(Product.class);
@@ -99,9 +106,9 @@ public class ProductRepositoryImpl implements ProductCustomMethods{
     	TypedQuery<Product> query = em.createQuery(criteriaQuery);
 
         int totalRows = query.getResultList().size();
-        retorno.setPagetotallines(totalRows);
-        retorno.setPagenumber(paginaatual);
-        query.setFirstResult(paginaatual * 50);
+        retorno.setPageTotalLines(totalRows);
+        retorno.setPageNumber(page);
+        query.setFirstResult(page * 50);
         query.setMaxResults(50);
         
         List<Product> list = query.getResultList();
@@ -111,7 +118,7 @@ public class ProductRepositoryImpl implements ProductCustomMethods{
 
 
 	@Override
-	public List<Product> getProductsByList(String name, Double valmin, Double valmax, Integer paginaatual) {
+	public List<Product> getProductsByList(String name, Double valmin, Double valmax, Integer page) {
 		Product retorno = new Product();
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Product> criteriaQuery = cb.createQuery(Product.class);
@@ -138,9 +145,9 @@ public class ProductRepositoryImpl implements ProductCustomMethods{
             TypedQuery<Product> query = em.createQuery(criteriaQuery);
 
             int totalRows = query.getResultList().size();
-            retorno.setPagetotallines(totalRows);
-            retorno.setPagenumber(paginaatual);
-            query.setFirstResult(paginaatual * 50);
+            retorno.setPageTotalLines(totalRows);
+            retorno.setPageNumber(page);
+            query.setFirstResult(page * 50);
             query.setMaxResults(50);
             
             List<Product> list = query.getResultList();
@@ -162,9 +169,9 @@ public class ProductRepositoryImpl implements ProductCustomMethods{
         	TypedQuery<Product> query = em.createQuery(criteriaQuery);
 
             int totalRows = query.getResultList().size();
-            retorno.setPagetotallines(totalRows);
-            retorno.setPagenumber(paginaatual);
-            query.setFirstResult(paginaatual * 50);
+            retorno.setPageTotalLines(totalRows);
+            retorno.setPageNumber(page);
+            query.setFirstResult(page * 50);
             query.setMaxResults(50);
             
             List<Product> list = query.getResultList();

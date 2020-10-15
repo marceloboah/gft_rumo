@@ -5,7 +5,7 @@ angular.module('gftApplication').service('productService',['$http',function($htt
 			return $http.get("api/products?page="+page);
 		},
 		findProductsBySearch: function(name, floor, valmax, page) {
-			return $http.get("api/products/find?name=" + name + "&floor=" + floor+ "&valmax=" + valmax+ "&paginaatual=" + page);
+			return $http.get("api/products/find?name=" + name + "&floor=" + floor+ "&valmax=" + valmax+ "&page=" + page);
 		}
 	}
 	

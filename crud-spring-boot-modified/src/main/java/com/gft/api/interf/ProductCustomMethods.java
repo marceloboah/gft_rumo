@@ -7,8 +7,8 @@ import com.gft.api.domain.Product;
 
 public interface ProductCustomMethods {
 
-	Product getProductsBySearch(String name, Double valmin, Double valmax, Integer paginaatual);
-	Product getAllProductsByPage(Integer paginaatual);
-	List<Product> getProductsByList(String name, Double valmin, Double valmax, Integer paginaatual);
+	Product getProductsBySearch(String name, Double valmin, Double valmax, Integer page);
+	Product getAllProductsByPage(Integer page);
+	List<Product> getProductsByList(String name, Double valmin, Double valmax, Integer page);
 
 }
